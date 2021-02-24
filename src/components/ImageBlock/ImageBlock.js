@@ -22,7 +22,6 @@ const ImageBlock = ({ className }) => {
   const fileClickHandler = () => {
     if (!inputRef.current) return;
     inputRef.current.click();
-    console.log('current: ', inputRef.current)
   }
 
   const btnClick = (callback) => (e) => {
@@ -49,9 +48,19 @@ const ImageBlock = ({ className }) => {
 
   return (
     <div className={`${className}`}>
-      <p>Please select image</p>
+      <p className="leading-9 font-semibold text-lg">
+        {
+          image
+          ? 'Image selected!'
+          : 'Please select image'
+        }
+      </p>
       <div {...getRootProps()} className="relative flex justify-center items-center max-h-full w-full border-blue-500 border-2 rounded bg-gray-200">
-        <img onLoad={loadHandler} id="selected-image" className="max-h-full" src={imageUrl} />
+        <img
+          onLoad={loadHandler}
+          src={imageUrl}
+          id="selected-image"
+          className="max-h-full attached-img" />
         <div className={`flex items-center justify-center absolute w-full h-full bg-black transition bg-opacity-50 ${hoverClasses}`}>
           <p className="text-white text-xl">Drop Here</p>
         </div>
