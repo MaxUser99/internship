@@ -1,4 +1,4 @@
-import { action, makeAutoObservable } from 'mobx';
+import { makeAutoObservable } from 'mobx';
 
 class AppStore {
   text = '';
@@ -13,7 +13,6 @@ class AppStore {
   }
 
   setImage = (image) => {
-    console.log('this: ', this);
     this.image = image;
   }
 }

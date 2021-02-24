@@ -1,25 +1,28 @@
 import { observer } from 'mobx-react-lite';
-import { createRef } from 'react';
+import { useDropzone } from 'react-dropzone';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faEdit } from '@fortawesome/free-regular-svg-icons';
 import PlaceholderImage from '../../assets/imagePlaceholder.jpg';
 import appStore from '../../store/appStore';
-import styles from './imageBlock.module.css';
 
 const ImageBlock = ({ className }) => {
-  const inputRef = createRef();
-
+  const onDrop = files => {
+    if (!files.length) return;
+    const file = files[0];
+    setImage(file);
+  }
+  const { getRootProps, getInputProps, isDragActive, inputRef } = useDropzone({
+    onDrop,
+    accept: 'image/*',
+    noClick: true,
+    multiple: false,
+  });
   const { image, setImage } = appStore;
 
   const fileClickHandler = () => {
     if (!inputRef.current) return;
     inputRef.current.click();
-  }
-
-  const fileChangeHandler = ({ target: { files } }) => {
-    if (!files.length) return;
-    const file = files[0];
-    setImage(file);
+    console.log('current: ', inputRef.current)
   }
 
   const btnClick = (callback) => (e) => {
@@ -34,11 +37,18 @@ const ImageBlock = ({ className }) => {
     ? window.URL.createObjectURL(image)
     : PlaceholderImage;
 
+  const hoverClasses = isDragActive
+  ? ''
+  : 'hidden';
+
   return (
     <div className={`${className} flex flex-col`}>
       <p>Please select image</p>
-      <div className="relative flex justify-center items-center max-h-full w-full border-blue-500 border-2 rounded bg-gray-200">
+      <div {...getRootProps()} className="relative flex justify-center items-center max-h-full w-full border-blue-500 border-2 rounded bg-gray-200">
         <img className="max-h-full" src={imageUrl} />
+        <div className={`flex items-center justify-center absolute w-full h-full bg-black transition bg-opacity-50 ${hoverClasses}`}>
+          <p className="text-white text-xl">Drop Here</p>
+        </div>
         <div className="flex items-center justify-center absolute w-full h-full bg-black transition opacity-0 hover:opacity-100 bg-opacity-0 hover:bg-opacity-50">
           <button onClick={btnClick(fileClickHandler)} className=" icon-btn p-2 m-2 rounded border-2 border-white bg-white hover:border-blue-500 transition">
             <FontAwesomeIcon className="" icon={faEdit} size='lg' />
@@ -51,7 +61,7 @@ const ImageBlock = ({ className }) => {
           }
         </div>
       </div>
-      <input ref={inputRef} onChange={fileChangeHandler} type="file" accept="image/*" hidden />
+      <input {...getInputProps()} />
     </div>
   );
 };

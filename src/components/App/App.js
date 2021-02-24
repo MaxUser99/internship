@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="grid grid-rows-layout gap-4 h-screen">
       <Header className="" />
-      <div className="max-w-screen-lg container flex mx-auto">
+      <div className="max-w-screen-lg container flex mx-auto flex-col md:flex-row">
         <ImageBlock className="flex w-full" />
         <TextBlock className="flex w-full" />
       </div>
