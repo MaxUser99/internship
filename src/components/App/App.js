@@ -1,3 +1,4 @@
+import AuthModal from '../AuthModal/AuthModal';
 import Header from '../Header/Header';
 import ImageBlock from '../ImageBlock/ImageBlock';
 import SubmitButton from '../SubmitButton/SubmitButton';
@@ -13,6 +14,7 @@ function App() {
         <TextBlock className="flex flex-col w-full m-2"/>
       </div>
       <SubmitButton />
+      <AuthModal />
     </div>
   );
 }
