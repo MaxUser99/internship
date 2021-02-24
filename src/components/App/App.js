@@ -12,7 +12,7 @@ function App() {
         <ImageBlock className="flex flex-col w-full m-2" />
         <TextBlock className="flex flex-col w-full m-2"/>
       </div>
-      <SubmitButton className="" />
+      <SubmitButton />
     </div>
   );
 }

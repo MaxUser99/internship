@@ -1,4 +1,5 @@
 import { makeAutoObservable } from 'mobx';
+import { USER_STATUS } from './userStore';
 
 class AppStore {
   text = '';
@@ -9,18 +10,18 @@ class AppStore {
     makeAutoObservable(this);
   }
 
-  // get imageHeight() {
-  //   console.log('image ref: ', this.imageRef && this.imageRef.offsetHeight);
-  //   if (!this.imageRef) return 0;
-  //   return this.imageRef.offsetHeight;
-  // }
+  get requiredStatus() {
+    const trimmedText = this.text.replace(/ /g,'');
+    if (trimmedText.length < 200) return USER_STATUS.GUEST;
+    if (trimmedText.length < 500) return USER_STATUS.USER;
+    return USER_STATUS.SUBSCRIBER;
+  }
 
   setImageHeight = (height) => {
-    console.log('new height: ', height);
     this.imageHeight = height;
   }
 
-  setText(text) {
+  setText = (text) => {
     this.text = text;
   }
 
