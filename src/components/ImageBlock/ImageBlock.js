@@ -11,13 +11,13 @@ const ImageBlock = ({ className }) => {
     const file = files[0];
     setImage(file);
   }
-  const { getRootProps, getInputProps, isDragActive, inputRef } = useDropzone({
+  const { getRootProps, getInputProps, isDragActive, inputRef, rootRef } = useDropzone({
     onDrop,
     accept: 'image/*',
     noClick: true,
     multiple: false,
   });
-  const { image, setImage } = appStore;
+  const { image, setImage, setImageHeight } = appStore;
 
   const fileClickHandler = () => {
     if (!inputRef.current) return;
@@ -33,19 +33,25 @@ const ImageBlock = ({ className }) => {
 
   const clearImage = () => setImage(null);
 
+  const loadHandler = () => {
+    if (!rootRef.current) return;
+    const height = rootRef.current.offsetHeight;
+    setImageHeight(height);
+  }
+
   const imageUrl = image
     ? window.URL.createObjectURL(image)
     : PlaceholderImage;
 
   const hoverClasses = isDragActive
-  ? ''
-  : 'hidden';
+    ? ''
+    : 'hidden';
 
   return (
-    <div className={`${className} flex flex-col`}>
+    <div className={`${className}`}>
       <p>Please select image</p>
       <div {...getRootProps()} className="relative flex justify-center items-center max-h-full w-full border-blue-500 border-2 rounded bg-gray-200">
-        <img className="max-h-full" src={imageUrl} />
+        <img onLoad={loadHandler} id="selected-image" className="max-h-full" src={imageUrl} />
         <div className={`flex items-center justify-center absolute w-full h-full bg-black transition bg-opacity-50 ${hoverClasses}`}>
           <p className="text-white text-xl">Drop Here</p>
         </div>
