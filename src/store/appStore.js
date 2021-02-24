@@ -1,20 +1,22 @@
-import { makeAutoObservable } from 'mobx';
+import { action, makeAutoObservable } from 'mobx';
 
 class AppStore {
+  text = '';
+  image = null;
+
   constructor() {
     makeAutoObservable(this);
   }
-
-  text = '';
-  image = null;
 
   setText(text) {
     this.text = text;
   }
 
-  setImage(image) {
+  setImage = (image) => {
+    console.log('this: ', this);
     this.image = image;
   }
 }
 
-export default new AppStore();
+const appStore = new AppStore();
+export default appStore;

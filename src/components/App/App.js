@@ -1,16 +1,18 @@
 import Header from '../Header/Header';
 import ImageBlock from '../ImageBlock/ImageBlock';
-import SubmitButton from '../Main/components/SubmitButton/SubmitButton';
-import TextBlock from '../Main/components/TextBlock/TextBlock';
+import SubmitButton from '../SubmitButton/SubmitButton';
+import TextBlock from '../TextBlock/TextBlock';
 import './App.css';
 
 function App() {
   return (
-    <div className="grid grid-rows-layout grid-cols-4 gap-4">
-      <Header className="col-span-full" />
-      <ImageBlock className="col-span-2" />
-      <TextBlock className="col-span-2" />
-      <SubmitButton className="col-span-full" />
+    <div className="grid grid-rows-layout gap-4 h-screen">
+      <Header className="" />
+      <div className="max-w-screen-lg container flex mx-auto">
+        <ImageBlock className="flex w-full" />
+        <TextBlock className="flex w-full" />
+      </div>
+      <SubmitButton className="" />
     </div>
   );
 }

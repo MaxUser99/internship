@@ -2,9 +2,9 @@ function Header({ className }) {
   const isLoggedIn = false;
 
   return (
-    <div className={`${className} bg-red-400`}>
+    <div className={`${className} bg-blue-500`}>
       <div className="container flex items-center justify-between mx-auto py-4">
-        <h1 className="text-3xl">header</h1>
+        <h1 className="text-3xl text-white">header</h1>
 
         {
           isLoggedIn

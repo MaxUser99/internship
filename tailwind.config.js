@@ -3,6 +3,9 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      gridTemplateColumns: {
+        'layout': '80px 1fr 80px',
+      },
       gridTemplateRows: {
         'layout': '80px 1fr 80px',
       }
