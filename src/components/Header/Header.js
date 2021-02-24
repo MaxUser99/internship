@@ -8,12 +8,13 @@ function Header({ className }) {
 
         {
           isLoggedIn
-          ? <p>user is logged in</p>
-          : <div></div>
+            ? <p>user is logged in</p>
+            : <div>
+              <button className="btn-loggin">
+                Sign In
+              </button>
+            </div>
         }
-        <div className="">
-
-        </div>
       </div>
     </div>
   );
