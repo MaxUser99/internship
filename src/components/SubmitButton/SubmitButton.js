@@ -6,13 +6,15 @@ import SubscriberButton from './SubscriberButton';
 import UserButton from './UserButton';
 
 const SubmitButton = () => {
-  const { requiredStatus } = appStore;
+  const { requiredStatus, image } = appStore;
 
-  console.log({ requiredStatus })
+  const hasImage = !!image;
+
+  console.log({ hasImage });
   let button = null;
-  if (requiredStatus === USER_STATUS.GUEST) button = <GuestButton />;
-  if (requiredStatus === USER_STATUS.USER) button = <UserButton />;
-  if (requiredStatus === USER_STATUS.SUBSCRIBER) button = <SubscriberButton />;
+  if (requiredStatus === USER_STATUS.GUEST) button = <GuestButton hasImage={hasImage} />;
+  if (requiredStatus === USER_STATUS.USER) button = <UserButton hasImage={hasImage} />;
+  if (requiredStatus === USER_STATUS.SUBSCRIBER) button = <SubscriberButton hasImage={hasImage} />;
 
   return (
     <div className="flex justify-center items-center">

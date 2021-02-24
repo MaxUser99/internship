@@ -6,19 +6,20 @@ import userStore, { USER_STATUS } from '../../store/userStore';
 
 const stateToText = {
   [BUTTON_STATE.OK]: 'Submit',
-  [BUTTON_STATE.DISABLED]: 'Please, entere some tags',
+  [BUTTON_STATE.DISABLED]: 'Please, enter some tags, and attach image',
   [BUTTON_STATE.INVALID]: 'Please Sign in'
 };
 
-const GuestButton = () => {
+const GuestButton = ({ hasImage }) => {
   const { text } = appStore;
   const { userStatus } = userStore;
 
   const state = useMemo(() => {
     if (!text.length) return BUTTON_STATE.DISABLED;
+    if (!hasImage) return BUTTON_STATE.DISABLED;
     if (userStatus === USER_STATUS.GUEST) return BUTTON_STATE.INVALID;
     return BUTTON_STATE.OK;
-  }, [text]);
+  }, [text, hasImage]);
 
   const className = classes[state];
   const disabled = state === BUTTON_STATE.INVALID || state === BUTTON_STATE.DISABLED;
