@@ -5,7 +5,8 @@ export const MODALS = {
 };
 
 class UiStore {
-  openedModal = null;
+  // openedModal = null;
+  openedModal = MODALS.AUTH;
 
   constructor() {
     makeAutoObservable(this);

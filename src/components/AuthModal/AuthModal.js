@@ -1,19 +1,49 @@
+import { useState } from 'react';
 import { observer } from "mobx-react-lite";
 import uiStore, { MODALS } from "../../store/uiStore";
 import styles from './AuthModal.module.css';
 
+const MODE = {
+  SIGN_IN: 'SIGN_IN',
+  SIGN_UP: 'SIGN_UP'
+}
+
 const AuthModal = () => {
   const { openedModal, openModal } = uiStore;
 
+  const [mode, setMode] = useState(MODE.SIGN_IN);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   const closeHandler = () => openModal(null);
 
-  console.log({ openedModal   })
+  const submitHandler = (e) => {
+    e.preventDefault();
+    setEmail('');
+    setPassword('');
+  }
+
+  const changeHandler = ({ target: { value, name }}) => {
+    if (name === 'email') setEmail(value);
+    else if (name === 'password') setPassword(value);
+  }
+
   if (openedModal !== MODALS.AUTH) return null;
 
   return (
     <>
-      <div className={`${styles.form} inset-center container bg-white`}>
-        <h2>Auth</h2>
+      <div className={`${styles.form} inset-center container bg-white p-6`}>
+        <h2 className="text-lg font-medium">Auth</h2>
+        <form onSubmit={submitHandler}>
+          <div class="my-5 text-sm">
+            <label for="email" className="block text-black">Email</label>
+            <input value={email} onChange={changeHandler} className="input" type="text" autoFocus name="email" placeholder="Email" />
+          </div>
+          <div class="my-5 text-sm">
+            <label for="password" className="block text-black">Password</label>
+            <input value={password} onChange={changeHandler} className="input" type="password" name="password" placeholder="Password" />
+          </div>
+        </form>
       </div>
       <div onClick={closeHandler} className="backface cursor-pointer" />
     </>
