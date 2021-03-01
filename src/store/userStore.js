@@ -1,4 +1,5 @@
 import { makeAutoObservable } from 'mobx';
+import { auth } from './firebase';
 
 export const USER_STATUS = {
   GUEST: 'GUEST',
@@ -11,6 +12,11 @@ class UserStore {
 
   constructor() {
     makeAutoObservable(this);
+
+    auth.onAuthStateChanged(user => {
+      this.user = user;
+      console.log('user: ', user);
+    });
   }
 
   get userStatus() {
